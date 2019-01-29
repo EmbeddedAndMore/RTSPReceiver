@@ -1,5 +1,6 @@
 #include "ClientSocket.h"
 #include <Ws2tcpip.h>
+#include <chrono>
 
 #pragma comment (lib, "Ws2_32.lib")
 #pragma comment (lib, "Mswsock.lib")
@@ -7,6 +8,8 @@
 
 
 //https://docs.microsoft.com/en-us/windows/desktop/winsock/getting-started-with-winsock
+
+
 
 ClientSocket::ClientSocket()
 {
@@ -22,12 +25,32 @@ ClientSocket::ClientSocket(int bufferSize, std::string port, std::string serverA
 	hints.ai_family = AF_UNSPEC;
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_protocol = IPPROTO_TCP;
+
+	
 }
 
 ClientSocket::~ClientSocket()
 {
+
 }
 
+void ClientSocket::receiveThread_function()
+{
+	while (true)
+	{
+		try
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(100));
+			int iResult = recv(_connectSocket, &_incomeBuffer[0], 1000, 0);
+			if (iResult > 0)
+				printf("Bytes received: %s\n", std::string(_incomeBuffer.begin(), _incomeBuffer.begin() + iResult).c_str());
+		}
+		catch (const std::exception&)
+		{
+
+		}
+	}
+}
 
 
 ClientSocket::SocketErrorTypes ClientSocket::Connect()
@@ -55,4 +78,8 @@ ClientSocket::SocketErrorTypes ClientSocket::Connect()
 	}
 
 	freeaddrinfo(result);
+
+
+	std::thread receiveThread(&ClientSocket::receiveThread_function,this);
+	receiveThread.join();
 }

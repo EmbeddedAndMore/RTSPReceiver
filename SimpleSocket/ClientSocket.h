@@ -1,6 +1,7 @@
 #include <winsock2.h>
 #include <vector>
 #include <string>
+#include <thread>
 #pragma once
 
 class ClientSocket
@@ -16,6 +17,11 @@ class ClientSocket
 	std::string _serverIpAddress;
 	std::vector<char> _incomeBuffer;
 	WSADATA _wsaData;
+
+	std::thread receiveThread();
+
+	void receiveThread_function();
+	
 public:
 	ClientSocket();
 	ClientSocket(int bufferSize, std::string port, std::string serverAddress);
