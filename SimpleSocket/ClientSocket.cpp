@@ -18,7 +18,9 @@ ClientSocket::ClientSocket()
 ClientSocket::ClientSocket(int bufferSize, std::string port, std::string serverAddress ): 
 	_incomeBuffer(bufferSize,0),
 	_port(port),
-	_serverIpAddress(serverAddress)
+	_serverIpAddress(serverAddress),
+	_result(NULL),
+	_ptr(NULL)
 {
 
 	ZeroMemory(&hints, sizeof(hints));
@@ -60,26 +62,26 @@ ClientSocket::SocketErrorTypes ClientSocket::Connect()
 		return SocketErrorTypes::WSAStartupfailedError;
 	}
 
-	if ((getaddrinfo(_serverIpAddress.c_str(), _port.c_str(), &hints, &result)) != 0)
+	if ((getaddrinfo(_serverIpAddress.c_str(), _port.c_str(), &hints, &_result)) != 0)
 	{
 		return SocketErrorTypes::InvalidAddressError;
 	} 
-	ptr = result;
-	_connectSocket = socket(ptr->ai_family, ptr->ai_socktype,
-		ptr->ai_protocol);
+	_ptr = _result;
+	_connectSocket = socket(_ptr->ai_family, _ptr->ai_socktype,
+		_ptr->ai_protocol);
 
 	if (_connectSocket == INVALID_SOCKET) {
 		return SocketErrorTypes::InvalidSocketError;
 	}
 
-	if( connect(_connectSocket, ptr->ai_addr, (int)ptr->ai_addrlen) == SOCKET_ERROR)
+	if( connect(_connectSocket, _ptr->ai_addr, (int)_ptr->ai_addrlen) == SOCKET_ERROR)
 	{
 		return SocketErrorTypes::ConnectionFailed;
 	}
 
-	freeaddrinfo(result);
+	freeaddrinfo(_result);
 
 
-	std::thread receiveThread(&ClientSocket::receiveThread_function,this);
-	receiveThread.join();
+	_receiveThread = std::thread(&ClientSocket::receiveThread_function, this);
+	_receiveThread.join();
 }

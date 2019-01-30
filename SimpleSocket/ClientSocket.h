@@ -6,11 +6,12 @@
 
 class ClientSocket
 {
+private:
 	struct sockaddr_in _address;
 	struct sockaddr_in _serverAddress;
 	
 	SOCKET _connectSocket = INVALID_SOCKET;
-	struct addrinfo *result = NULL, *ptr = NULL, hints;
+	struct addrinfo *_result, *_ptr , hints;
 
 	int _sock = 0;
 	std::string _port;
@@ -18,7 +19,7 @@ class ClientSocket
 	std::vector<char> _incomeBuffer;
 	WSADATA _wsaData;
 
-	std::thread receiveThread();
+	std::thread _receiveThread;
 
 	void receiveThread_function();
 	
@@ -27,7 +28,7 @@ public:
 	ClientSocket(int bufferSize, std::string port, std::string serverAddress);
 	~ClientSocket();
 
-	enum SocketErrorTypes {
+	enum class SocketErrorTypes {
 		SocketCreationError,
 		InvalidAddressError,
 		ConnectionFailed,
