@@ -18,12 +18,27 @@
     <ClInclude Include="ClientSocket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RTSPListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RTSPMessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClientSocket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RTSPListener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RTSPMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

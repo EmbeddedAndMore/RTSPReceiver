@@ -116,10 +116,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ClientSocket.h" />
+    <ClInclude Include="RTSPListener.h" />
+    <ClInclude Include="RTSPMessage.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClientSocket.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RTSPListener.cpp" />
+    <ClCompile Include="RTSPMessage.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
