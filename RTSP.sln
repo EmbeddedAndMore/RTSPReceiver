@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleSocket", "SimpleSocket\SimpleSocket.vcxproj", "{92EC375E-7859-445A-B0CD-888DA1F88954}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RTSP", "RTSP\RTSP.vcxproj", "{92EC375E-7859-445A-B0CD-888DA1F88954}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
